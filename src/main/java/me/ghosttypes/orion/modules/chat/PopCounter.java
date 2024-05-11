@@ -123,7 +123,7 @@ public class PopCounter extends Module {
             int pops = totemPops.getOrDefault(entity.getUuid(), 0);
             totemPops.put(entity.getUuid(), ++pops);
 
-            ChatUtils.sendMsg(getChatId(entity), Formatting.GRAY, "(highlight)%s (default)popped (highlight)%d (default)%s.", entity.getEntityName(), pops, pops == 1 ? "totem" : "totems");
+            ChatUtils.sendMsg(getChatId(entity), Formatting.GRAY, "(highlight)%s (default)popped (highlight)%d (default)%s.", entity.getName().getString(), pops, pops == 1 ? "totem" : "totems");
         }
         if (announceOthers.get() && announceWait <= 1 && mc.player.distanceTo(entity) <= announceRange.get()) {
             if (dontAnnounceFriends.get() && Friends.get().isFriend((PlayerEntity) entity)) return;
@@ -134,7 +134,7 @@ public class PopCounter extends Module {
                 ChatUtils.sendPlayerMsg(popMessage);
 
                 if (pmOthers.get()) {
-                    String name = entity.getEntityName();
+                    String name = entity.getName().getString();
                     Wrapper.messagePlayer(name, StringHelper.stripName(name, popMessage));
                 }
             } catch (StarscriptError error) {
@@ -160,9 +160,9 @@ public class PopCounter extends Module {
                 if (player.deathTime > 0 || player.getHealth() <= 0) {
                     int pops = totemPops.removeInt(player.getUuid());
 
-                    ChatUtils.sendMsg(getChatId(player), Formatting.GRAY, "(highlight)%s (default)popped (highlight)%d (default)%s.", player.getEntityName(), pops, pops == 1 ? "totem" : "totems");
+                    ChatUtils.sendMsg(getChatId(player), Formatting.GRAY, "(highlight)%s (default)popped (highlight)%d (default)%s.", player.getName().getString(), pops, pops == 1 ? "totem" : "totems");
                     chatIds.removeInt(player.getUuid());
-                    if (EzUtil.currentTargets.contains(player.getEntityName())) EzUtil.sendAutoEz(player.getEntityName());
+                    if (EzUtil.currentTargets.contains(player.getName().getString())) EzUtil.sendAutoEz(player.getName().getString());
                 }
             }
         }
@@ -174,7 +174,7 @@ public class PopCounter extends Module {
 
     private String getPopMessage(PlayerEntity p) {
         MeteorStarscript.ss.set("pops", totemPops.getOrDefault(p.getUuid(), 0));
-        MeteorStarscript.ss.set("killed", p.getEntityName());
+        MeteorStarscript.ss.set("killed", p.getName().getString());
 
         if (popScripts.isEmpty()) {
             ChatUtils.warning("Your pop message list is empty!");
