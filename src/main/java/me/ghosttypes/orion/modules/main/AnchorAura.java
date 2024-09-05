@@ -11,6 +11,7 @@ import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.Utils;
+import meteordevelopment.meteorclient.utils.entity.DamageUtils;
 import meteordevelopment.meteorclient.utils.entity.EntityUtils;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
 import meteordevelopment.meteorclient.utils.entity.TargetUtils;
@@ -141,7 +142,7 @@ public class AnchorAura extends Module {
                 FindItemResult pick = ItemHelper.findPick();
                 if (pick.found()) {
                     Wrapper.updateSlot(pick.slot());
-                    info("Breaking " + target.getEntityName() + "'s self-trap.");
+                    info("Breaking " + target.getDisplayName() + "'s self-trap.");
                     AutomationUtils.doPacketMine(target.getBlockPos().up(2));
                     sentTrapMine = true;
                     return;
@@ -158,7 +159,7 @@ public class AnchorAura extends Module {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
                 Wrapper.updateSlot(pick.slot());
-                info("Breaking " + target.getEntityName() + "'s burrow");
+                info("Breaking " + target.getDisplayName() + "'s burrow");
                 AutomationUtils.doPacketMine(target.getBlockPos());
                 sentBurrowMine = true;
                 return;
