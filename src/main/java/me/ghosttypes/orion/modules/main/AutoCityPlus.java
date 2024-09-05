@@ -19,6 +19,7 @@ import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
@@ -31,6 +32,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
+
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 
 public class AutoCityPlus extends Module {
@@ -124,7 +127,7 @@ public class AutoCityPlus extends Module {
         if (!isMining) {
             isMining = true;
             if (!didFirstMine) didFirstMine = true;
-            info("Citying " + target.getEntityName() + ".");
+            info("Citying " + target.getDisplayName() + ".");
             if (rotate.get()) {
                 Rotations.rotate(Rotations.getYaw(cityBlock), Rotations.getPitch(cityBlock), () -> mine(cityBlock));
             } else {
@@ -142,7 +145,7 @@ public class AutoCityPlus extends Module {
 
 
     private boolean outOfRange() {
-        return MathHelper.sqrt((float) mc.player.squaredDistanceTo(cityBlock.getX(), cityBlock.getY(), cityBlock.getZ())) > mc.interactionManager.getReachDistance();
+        return MathHelper.sqrt((float) mc.player.squaredDistanceTo(cityBlock.getX(), cityBlock.getY(), cityBlock.getZ())) > mc.player.getAttributes().getBaseValue(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
     }
 
     private void mine(BlockPos blockPos) {
@@ -209,7 +212,7 @@ public class AutoCityPlus extends Module {
 
     @Override
     public String getInfoString() {
-        if (target != null) return target.getEntityName();
+        if (target != null) return target.getNameForScoreboard();
         return null;
     }
 }

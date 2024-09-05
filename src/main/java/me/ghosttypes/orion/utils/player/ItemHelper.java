@@ -103,8 +103,8 @@ public class ItemHelper {
         if (item instanceof BedItem) return "Beds";
         if (item instanceof ExperienceBottleItem) return "XP";
         if (item instanceof EndCrystalItem) return "Crystals";
-        if (item instanceof EnchantedGoldenAppleItem) return "EGaps";
         if (item instanceof EnderPearlItem) return "Pearls";
+        if (item.equals(Items.ENCHANTED_GOLDEN_APPLE)) return "EGaps";
         if (item.equals(Items.TOTEM_OF_UNDYING)) return "Totems";
         if (Block.getBlockFromItem(item) == Blocks.OBSIDIAN) return "Obby";
         if (Block.getBlockFromItem(item) instanceof EnderChestBlock) return "Echests";
