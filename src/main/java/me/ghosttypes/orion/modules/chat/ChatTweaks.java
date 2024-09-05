@@ -9,8 +9,8 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.render.color.RainbowColor;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.PlainTextContent;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
@@ -53,8 +53,8 @@ public class ChatTweaks extends Module {
 
 
     public Text getPrefix() {
-        MutableText logo = MutableText.of(new LiteralTextContent(""));
-        MutableText prefix = MutableText.of(new LiteralTextContent(""));
+        MutableText logo = MutableText.of(PlainTextContent.of(""));
+        MutableText prefix = MutableText.of(PlainTextContent.of(""));
         String logoT = "Orion";
         if (customPrefix.get()) logoT = prefixText.get();
         if (customPrefixColor.get() && !chromaPrefix.get()) logo.append(Text.literal(logoT).setStyle(logo.getStyle().withColor(TextColor.fromRgb(prefixColor.get().getPacked()))));

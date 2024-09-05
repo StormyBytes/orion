@@ -66,7 +66,7 @@ public class BurrowBreaker extends Module {
             wasBurrowed = true;
             BlockPos burrowBlock = target.getBlockPos();
             if (!alertedTarget) {
-                info("Breaking " + target.getEntityName() + "'s burrow!");
+                info("Breaking " + target.getDisplayName() + "'s burrow!");
                 alertedTarget = true;
             }
             Wrapper.updateSlot(pickSlot.slot());
@@ -77,7 +77,7 @@ public class BurrowBreaker extends Module {
             return;
         }
         if (!AutomationUtils.isBurrowed(target, true) && wasBurrowed) {
-            info("Broke " + target.getEntityName() + "'s burrow!");
+            info("Broke " + target.getDisplayName() + "'s burrow!");
             if (preventAfter.get()) {
                 FindItemResult floorBlock = InvUtils.findInHotbar(itemStack -> Block.getBlockFromItem(itemStack.getItem()) instanceof AbstractPressurePlateBlock || Block.getBlockFromItem(itemStack.getItem()) instanceof ButtonBlock);
                 if (!floorBlock.found()) {
@@ -85,7 +85,7 @@ public class BurrowBreaker extends Module {
                     toggle();
                 }
                 BlockUtils.place(target.getBlockPos(), floorBlock, true, 0, false);
-                info("Blocked " + target.getEntityName() + " from re-burrowing!");
+                info("Blocked " + target.getDisplayName() + " from re-burrowing!");
             }
             toggle();
         }

@@ -14,6 +14,7 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.combat.CrystalAura;
 import meteordevelopment.meteorclient.utils.Utils;
+import meteordevelopment.meteorclient.utils.entity.DamageUtils;
 import meteordevelopment.meteorclient.utils.entity.EntityUtils;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
 import meteordevelopment.meteorclient.utils.entity.TargetUtils;
@@ -172,7 +173,7 @@ public class BedAura extends Module {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
                 Wrapper.updateSlot(pick.slot());
-                info("Breaking " + target.getEntityName() + "'s self-trap.");
+                info("Breaking " + target.getDisplayName() + "'s self-trap.");
                 stb = BedUtils.getSelfTrapBlock(target, preventEscape.get());
                 AutomationUtils.doPacketMine(stb);
                 sentTrapMine = true;
@@ -183,7 +184,7 @@ public class BedAura extends Module {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
                 Wrapper.updateSlot(pick.slot());
-                info("Breaking " + target.getEntityName() + "'s burrow.");
+                info("Breaking " + target.getDisplayName() + "'s burrow.");
                 AutomationUtils.doPacketMine(target.getBlockPos());
                 sentBurrowMine = true;
                 return;
@@ -194,7 +195,7 @@ public class BedAura extends Module {
             if (sword.found()) {
                 Wrapper.updateSlot(sword.slot());
                 if (webTimer <= 0) {
-                    info("Breaking " + target.getEntityName() + "'s web.");
+                    info("Breaking " + target.getDisplayName() + "'s web.");
                     webTimer = 100;
                 } else {
                     webTimer--;
