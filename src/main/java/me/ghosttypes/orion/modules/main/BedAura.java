@@ -14,6 +14,7 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.combat.CrystalAura;
 import meteordevelopment.meteorclient.utils.Utils;
+import meteordevelopment.meteorclient.utils.entity.DamageUtils;
 import meteordevelopment.meteorclient.utils.entity.EntityUtils;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
 import meteordevelopment.meteorclient.utils.entity.TargetUtils;
@@ -26,6 +27,7 @@ import net.minecraft.block.BedBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BedBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BedItem;
 import net.minecraft.item.Item;
@@ -35,6 +37,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class BedAura extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -172,7 +176,7 @@ public class BedAura extends Module {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
                 Wrapper.updateSlot(pick.slot());
-                info("Breaking " + target.getEntityName() + "'s self-trap.");
+                info("Breaking " + target.getDisplayName() + "'s self-trap.");
                 stb = BedUtils.getSelfTrapBlock(target, preventEscape.get());
                 AutomationUtils.doPacketMine(stb);
                 sentTrapMine = true;
@@ -183,7 +187,7 @@ public class BedAura extends Module {
             FindItemResult pick = ItemHelper.findPick();
             if (pick.found()) {
                 Wrapper.updateSlot(pick.slot());
-                info("Breaking " + target.getEntityName() + "'s burrow.");
+                info("Breaking " + target.getDisplayName() + "'s burrow.");
                 AutomationUtils.doPacketMine(target.getBlockPos());
                 sentBurrowMine = true;
                 return;
@@ -194,7 +198,7 @@ public class BedAura extends Module {
             if (sword.found()) {
                 Wrapper.updateSlot(sword.slot());
                 if (webTimer <= 0) {
-                    info("Breaking " + target.getEntityName() + "'s web.");
+                    info("Breaking " + target.getDisplayName() + "'s web.");
                     webTimer = 100;
                 } else {
                     webTimer--;
@@ -251,7 +255,7 @@ public class BedAura extends Module {
             if (!(blockEntity instanceof BedBlockEntity)) continue;
             BlockPos bedPos = blockEntity.getPos();
             Vec3d bedVec = Utils.vec3d(bedPos);
-            if (PlayerUtils.distanceTo(bedVec) <= mc.interactionManager.getReachDistance()
+            if (PlayerUtils.distanceTo(bedVec) <= mc.player.getAttributes().getBaseValue(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE)
                     && DamageUtils.bedDamage(target, bedVec) >= minDamage.get()
                     && DamageUtils.bedDamage(mc.player, bedVec) < maxSelfDamage.get()
                     && (!antiSuicide.get() || PlayerUtils.getTotalHealth() - DamageUtils.bedDamage(mc.player, bedVec) > 0)) {

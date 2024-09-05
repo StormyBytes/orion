@@ -15,8 +15,8 @@ import net.minecraft.util.Identifier;
 public class Logo extends HudElement {
     public static final HudElementInfo<Logo> INFO = new HudElementInfo<>(Orion.HUD_GROUP, "Orion-logo", "Displays the Orion logo.", Logo::new);
 
-    private static final Identifier LOGO = new Identifier("orion", "logo.png");
-    private static final Identifier LOGO_FLAT = new Identifier("orion", "logo_flat.png");
+    private static final Identifier LOGO = Identifier.of("orion", "logo.png");
+    private static final Identifier LOGO_FLAT = Identifier.of("orion", "logo_flat.png");
 
     private static final RainbowColor RAINBOW = new RainbowColor();
 

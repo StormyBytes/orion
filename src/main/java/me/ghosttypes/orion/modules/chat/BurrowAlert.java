@@ -36,11 +36,11 @@ public class BurrowAlert extends Module {
         for (PlayerEntity player : mc.world.getPlayers()) {
             if (isValid(player)) {
                 burrowedPlayers.add(player);
-                warning(player.getEntityName() + " is burrowed!");
+                warning(player.getDisplayName() + " is burrowed!");
             }
             if (burrowedPlayers.contains(player) && !AutomationUtils.isBurrowed(player, true)) {
                 burrowedPlayers.remove(player);
-                warning(player.getEntityName() + " is no longer burrowed.");
+                warning(player.getDisplayName() + " is no longer burrowed.");
             }
         }
     }
