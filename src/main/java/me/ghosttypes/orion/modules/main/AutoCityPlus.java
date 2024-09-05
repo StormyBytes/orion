@@ -124,7 +124,7 @@ public class AutoCityPlus extends Module {
         if (!isMining) {
             isMining = true;
             if (!didFirstMine) didFirstMine = true;
-            info("Citying " + target.getEntityName() + ".");
+            info("Citying " + target.getDisplayName() + ".");
             if (rotate.get()) {
                 Rotations.rotate(Rotations.getYaw(cityBlock), Rotations.getPitch(cityBlock), () -> mine(cityBlock));
             } else {
@@ -209,7 +209,7 @@ public class AutoCityPlus extends Module {
 
     @Override
     public String getInfoString() {
-        if (target != null) return target.getEntityName();
+        if (target != null) return target.getNameForScoreboard();
         return null;
     }
 }
